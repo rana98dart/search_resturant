@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:search_restaurant/models/menu_model.dart';
 import 'package:search_restaurant/models/menu_param.dart';
+import 'package:search_restaurant/pages/details.dart';
 import 'package:search_restaurant/servers/api_menu.dart';
 
 class MenuPage extends StatefulWidget {
@@ -125,8 +126,8 @@ class _MenuPageState extends State<MenuPage> {
                               itemCount: categorys.length,
                               itemBuilder: (context, index) {
                                 return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: GestureDetector(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: GestureDetector(
                                       onTap: () {
                                         setState(() {
                                           Param = MenuParam(
@@ -137,20 +138,18 @@ class _MenuPageState extends State<MenuPage> {
                                                   : categorys[index].name);
                                         });
                                       },
-                                      child: Text(
-                                        categorys[index].name,
-                                        style: TextStyle(
+                                      child: Text(categorys[index].name,
+                                          style: TextStyle(
                                             color: (Param.category ==
                                                         categorys[index].name ||
-                                                    (Param.category == ''))
+                                                    (Param.category == '' &&
+                                                        categorys[index] ==
+                                                            Productcategory
+                                                                .All))
                                                 ? Color(0xff0070648)
                                                 : Color(0xff938DB5),
-                                            fontSize: Param.category ==
-                                                    categorys[index].name
-                                                ? 20
-                                                : 16),
-                                      )),
-                                );
+                                          )),
+                                    ));
                               },
                             ),
                           )
@@ -161,10 +160,13 @@ class _MenuPageState extends State<MenuPage> {
                   SizedBox(
                     width: 20,
                   ),
-                  SvgPicture.asset(
-                    './lib/assets/photos/Group6.svg',
-                    width: 26,
-                    height: 17,
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 45),
+                    child: SvgPicture.asset(
+                      './lib/assets/photos/Group6.svg',
+                      width: 26,
+                      height: 17,
+                    ),
                   )
                 ],
               ),
@@ -184,59 +186,70 @@ class _MenuPageState extends State<MenuPage> {
                           itemBuilder: (context, index) {
                             return Padding(
                               padding: const EdgeInsets.all(16),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(1),
-                                    color: Colors.white),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              right: 0.5, top: 25),
-                                          child: ClipOval(
-                                            child: Image.network(
-                                                width: 100,
-                                                height: 100,
-                                                fit: BoxFit.cover,
-                                                'https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2023/09/Vegetable-Soup-6-1024x1536.jpg'),
+                              child: GestureDetector(
+                                onTap: (){
+                                  setState(() {
+                                    Navigator.push(context, MaterialPageRoute(builder:(context) {
+                                      return Details(menuitem: snapshot.data![index] )
+                                      ;
+                                    },));
+                                  });
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(1),
+                                      color: Colors.white),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 0.5, top: 25),
+                                            child: ClipOval(
+                                              child: Image.network(
+                                                snapshot.data![index].image
+                                                  ,width: 100,
+                                                  height: 100,
+                                                  fit: BoxFit.cover,
+                                                  ),
+                                            ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          width: 130,
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              right: 0.5, top: 50),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                snapshot.data![index].name,
-                                              ),
-                                              Text(
-                                                snapshot.data![index].price
-                                                    .toString(),
-                                                style: TextStyle(
-                                                    color: Colors.red),
-                                              ),
-                                              Text(
-                                                  snapshot.data![index].category
-                                                      .name,
-                                                  style: TextStyle())
-                                            ],
+                                          SizedBox(
+                                            width: 130,
                                           ),
-                                        )
-                                      ],
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                    ),
-                                  ],
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 0.5, top: 50),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  snapshot.data![index].name,
+                                                ),
+                                                Text(
+                                                  snapshot.data![index].price
+                                                      .toString(),
+                                                  style: TextStyle(
+                                                      color: Colors.red),
+                                                ),
+                                                Text(
+                                                    snapshot.data![index].category
+                                                        .name,
+                                                    style: TextStyle())
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             );

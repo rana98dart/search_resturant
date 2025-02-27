@@ -5,7 +5,7 @@ import 'package:search_restaurant/models/menu_model.dart';
 import 'package:search_restaurant/models/menu_param.dart';
 
 class ApiMenu {
-  final baseUri = 'http://159.65.175.106:8000/';
+  final baseUri = 'http://46.101.203.30:8000/';
   Future<List<MenuModel>> getmenu(MenuParam param) async {
     final respons = await http.get(Uri.parse(baseUri+'menu?category=${param.category}&name=${param.name}'
     ));
