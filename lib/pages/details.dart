@@ -20,7 +20,7 @@ class _DetailsState extends State<Details> {
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
-          return <Widget>[
+          return [
             SliverAppBar(
               flexibleSpace: FlexibleSpaceBar(
                 expandedTitleScale: 100.0,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:search_restaurant/models/menu_model.dart';
 import 'package:search_restaurant/models/menu_param.dart';
+import 'package:search_restaurant/pages/basket_page.dart';
 import 'package:search_restaurant/pages/details.dart';
 import 'package:search_restaurant/servers/api_menu.dart';
 
@@ -42,10 +43,17 @@ class _MenuPageState extends State<MenuPage> {
               padding: const EdgeInsets.all(8),
               child: Column(
                 children: [
-                  SvgPicture.asset(
-                    './lib/assets/photos/Group25.svg',
-                    width: 28,
-                    height: 28,
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder:(context) {
+                        return BasketPage();
+                      },));
+                    },
+                    child: SvgPicture.asset(
+                      './lib/assets/photos/Group25.svg',
+                      width: 28,
+                      height: 28,
+                    ),
                   )
                 ],
               ),
