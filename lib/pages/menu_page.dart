@@ -4,6 +4,7 @@ import 'package:search_restaurant/models/menu_model.dart';
 import 'package:search_restaurant/models/menu_param.dart';
 import 'package:search_restaurant/pages/basket_page.dart';
 import 'package:search_restaurant/pages/details.dart';
+import 'package:search_restaurant/pages/profile_page.dart';
 import 'package:search_restaurant/servers/api_menu.dart';
 
 class MenuPage extends StatefulWidget {
@@ -33,12 +34,13 @@ class _MenuPageState extends State<MenuPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: Icon(
-            Icons.short_text,
-            color: Color(0xff070648),
-            size: 44,
-          ),
-          actions: [
+          leading:IconButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder:(context) {
+              return ProfilePage();
+            },));
+          }, 
+          icon: Icon(Icons.person))
+          ,actions: [
             Padding(
               padding: const EdgeInsets.all(8),
               child: Column(
